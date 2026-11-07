@@ -85,6 +85,12 @@ body{background:radial-gradient(circle at 8% 5%,#ffe0ee 0,transparent 25%),radia
 .co-group h3{color:#b83e75}.co-choice{border:2px solid #ffc5d9;border-radius:20px;background:#fffafd;color:#63364c;box-shadow:0 4px 12px #e77aa510}.co-choice small{color:#a76a83}.co-choice.selected{border-color:#ed6b9e;background:#ffe5ef;box-shadow:0 0 0 3px #ed6b9e24}.co-choice:disabled{background:#f8eaf0;opacity:.55}
 .co-addon{border:1.5px solid #ffc5d9;border-radius:20px;background:#fffafd}.co-addon input{accent-color:#e95d96}.co-addon strong{color:#c7467b}
 .co-summary{border:1.5px solid #ffc5d9;border-radius:24px;background:#fffafd}.co-row{border-color:#ffd4e3;color:#a76a83}.co-row b{color:#63364c}.co-total{color:#b83e75;border-color:#ffc1d8}.co-field{color:#a65f7d}.co-field input{border-color:#ffc5d9;background:#fff}
+.co-field textarea{display:block;width:100%;box-sizing:border-box;min-height:132px;resize:vertical;margin-top:9px;padding:17px 18px;border:1.5px solid #f4a9c6;border-radius:20px;background:linear-gradient(145deg,#fffafd 0%,#fff1f7 100%);color:#63364c;font:inherit;line-height:1.55;box-shadow:inset 0 2px 5px #d95e900b,0 5px 14px #d95e9010;outline:none;transition:.18s}
+.co-field textarea::placeholder{color:#c49aaa}
+.co-field textarea:focus{border-color:#e95d96;box-shadow:0 0 0 4px #e95d961c,0 7px 18px #d95e9018;background:#fffafd}
+.co-notes-wrap{margin-top:19px;padding:16px;border:1px dashed #f2a9c6;border-radius:22px;background:linear-gradient(145deg,#fff8fb,#fff0f6)}
+.co-notes-wrap .co-field{margin:0;color:#b83e75;font-weight:700}
+.co-notes-hint{margin:6px 0 0;color:#a76a83;font-size:13px;line-height:1.5}
 .co-send{background:linear-gradient(100deg,#f77eaa,#d94e88);border-radius:999px;box-shadow:0 8px 18px #d95e9028}.co-note{color:#a76a83}
 button,a,input,textarea{accent-color:#e95d96}
 
@@ -146,9 +152,10 @@ button,a,input,textarea{accent-color:#e95d96}
     <h3>① Pick your pattern ✨</h3>
     <p class="co-help">Tap to choose one pattern (optional)</p>
     <div class="co-grid" id="co-patterns">
-      <button class="co-choice" type="button" data-pattern="Lava" data-price="0"><b>Lava</b><small>Included</small></button>
-      <button class="co-choice" type="button" data-pattern="Full Glitter" data-price="12"><b>Full Glitter</b><small>+RM12</small></button>
-      <button class="co-choice" type="button" data-pattern="Normal Cateye" data-price="0"><b>Normal Cateye</b><small>Included</small></button>
+      <button class="co-choice" type="button" data-pattern="Single Lava (one colour)" data-price="0"><b>Single Lava</b><small>One colour · Included</small></button>
+      <button class="co-choice" type="button" data-pattern="Dual Lava (two colour)" data-price="0"><b>Dual Lava</b><small>Two colour · Included</small></button>
+      <button class="co-choice" type="button" data-pattern="Glitter" data-price="12"><b>Glitter</b><small>+RM12</small></button>
+      <button class="co-choice" type="button" data-pattern="Cateye" data-price="0"><b>Cateye</b><small>Included</small></button>
       <button class="co-choice" type="button" disabled aria-disabled="true"><b>Triple Lava</b><small>Coming soon · Not available</small></button>
     </div>
   </div>
@@ -178,9 +185,10 @@ button,a,input,textarea{accent-color:#e95d96}
     <div class="co-row"><span>Add-ons</span><b id="co-sum-addons">None</b></div>
     <div class="co-row"><span>Delivery</span><b id="co-sum-delivery">Not selected</b></div>
     <div class="co-row co-total"><span>Estimated total</span><b id="co-sum-total">Choose a tumbler</b></div>
-    <label class="co-field">TikTok handle<input id="co-handle" type="text" placeholder="@yourhandle"></label>
     <label class="co-field">Name<input id="co-name" type="text" placeholder="Your name"></label>
-    <label class="co-field">Notes (optional)<input id="co-notes" type="text" placeholder="Any colour or design request?"></label>
+    <label class="co-field">Mailing Address<input id="co-address" type="text" placeholder="Your full mailing address"></label>
+    <label class="co-field">Phone Number<input id="co-phone" type="tel" placeholder="Your phone number"></label>
+    <div class="co-notes-wrap"><label class="co-field" for="co-notes">💌 Notes <span style="font-weight:500;color:#b9879e">(optional)</span><textarea id="co-notes" rows="4" placeholder="Tell us your preferred colours, design ideas or any special requests..."></textarea></label><p class="co-notes-hint">A little note helps us make your tumbler extra special ♡</p></div>
     <a class="co-send" id="co-whatsapp" href="#" target="_blank" rel="noopener">💬 Send custom order via WhatsApp</a>
     <p class="co-note">Final details and availability will be confirmed via WhatsApp. Triple Lava is not available yet. Sending an order does not mean payment is completed.</p>
   </div>
@@ -237,9 +245,10 @@ document.querySelectorAll('[data-filter]').forEach(a=>a.addEventListener('click'
    `Add-ons: ${addons.length?addons.map(x=>x.name+' (+RM'+x.price+')').join(', '):'None'}`,
    `Delivery: ${delivery?delivery.name+(delivery.price?' - +RM'+delivery.price:' - Free'):'Not selected'}`,
    `Estimated total: ${bottle?money(total):'To be confirmed'}`,
-   `TikTok: ${document.getElementById('co-handle').value||'Not provided'}`,
    `Name: ${document.getElementById('co-name').value||'Not provided'}`,
-   `Notes: ${document.getElementById('co-notes').value||'None'}`
+   `Mailing Address: ${document.getElementById('co-address').value||'Not provided'}`,
+   `Phone Number: ${document.getElementById('co-phone').value||'Not provided'}`,
+   `Notes: ${document.getElementById('co-notes').value.trim()||'None'}`
   ].join('\\n');
   document.getElementById('co-whatsapp').href='https://wa.me/'+wa+'?text='+encodeURIComponent(msg);
  }
@@ -253,7 +262,7 @@ document.querySelectorAll('[data-filter]').forEach(a=>a.addEventListener('click'
  };
  document.querySelectorAll('#co-patterns .co-choice:not(:disabled)').forEach(btn=>btn.addEventListener('click',()=>{pattern={name:btn.dataset.pattern,price:+btn.dataset.price};choose('co-patterns',btn);update()}));
  document.querySelectorAll('#co-delivery .co-choice').forEach(btn=>btn.addEventListener('click',()=>{delivery={name:btn.dataset.delivery,price:+btn.dataset.price};choose('co-delivery',btn);update()}));
- document.querySelectorAll('.co-addon input,#co-handle,#co-name,#co-notes').forEach(el=>el.addEventListener('input',update));
+ document.querySelectorAll('.co-addon input,#co-name,#co-address,#co-phone,#co-notes').forEach(el=>el.addEventListener('input',update));
  update();
 })();
 </script>
