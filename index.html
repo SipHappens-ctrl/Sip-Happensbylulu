@@ -100,7 +100,14 @@ button,a,input,textarea{accent-color:#e95d96}
 .bottle-pick.selected{border-color:#ed6b9e;background:#ffe0ec;box-shadow:0 0 0 3px #ed6b9e24}
 @media(max-width:480px){.bottle-picks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.bottle-pick{min-height:112px;padding:15px 8px}.bottle-pick span{font-size:14px}.bottle-pick b{font-size:19px}.bottle-pick small{font-size:10px}}
 
-</style></head>
+</style>
+<style>
+  /* Sip Happens: keep the bottle showcase as the single tumbler shopping area.
+     The hidden catalogue nodes remain in the DOM for existing cart scripts. */
+  .nav, #catalogue { display: none !important; }
+</style>
+
+</head>
 <body>
 <div class="topbar">♡ THANK YOU FOR SUPPORTING OUR LITTLE SHOP ♡</div>
 <header class="wrap hero">
